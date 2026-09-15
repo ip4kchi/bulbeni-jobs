@@ -28,8 +28,6 @@
     <div class="header-inner">
     </div>
 </header>
-
-
 <main>
 
     <!-- =====================================================
@@ -83,7 +81,49 @@
          JOBS
     ====================================================== -->
 
-    <section class="jobs-section">
+    
+<section class="alerts-section">
+    <div class="container">
+        <div class="alerts-card">
+            <div class="alerts-copy">
+                <div class="alerts-label">JOB ALERTS</div>
+                <h2>Never miss a new opportunity.</h2>
+                <p>
+                    Leave your email and we'll let you know when a new
+                    English teaching position is posted on Bulbeni Jobs.
+                </p>
+            </div>
+
+            <form id="jobAlertForm" class="alerts-form">
+                <div class="alerts-input-wrap">
+                    <input
+                        type="email"
+                        id="jobAlertEmail"
+                        name="email"
+                        placeholder="Your email address"
+                        autocomplete="email"
+                        required
+                    >
+                    <button type="submit" id="jobAlertButton">
+                        Notify me
+                    </button>
+                </div>
+
+                <div
+                    id="jobAlertMessage"
+                    class="alerts-message"
+                    aria-live="polite"
+                ></div>
+
+                <p class="alerts-note">
+                    You can unsubscribe at any time.
+                </p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="jobs-section">
 
         <div class="container">
 

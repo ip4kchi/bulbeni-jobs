@@ -293,3 +293,181 @@ document.addEventListener(
     "DOMContentLoaded",
     initializeJobs
 );
+
+
+
+function initializeSidebar() {
+
+    const body = document.body;
+
+    const sidebarClose =
+        document.getElementById("sidebarClose");
+
+    const sidebarTrigger =
+        document.getElementById("sidebarTrigger");
+
+    const sidebarOverlay =
+        document.getElementById("sidebarOverlay");
+
+
+    if (!sidebarClose || !sidebarTrigger) {
+        return;
+    }
+
+
+    function isDesktop() {
+        return window.innerWidth > 1100;
+    }
+
+
+    function openSidebar() {
+
+        if (isDesktop()) {
+            body.classList.remove("sidebar-collapsed");
+        } else {
+            body.classList.add("sidebar-open");
+        }
+
+        sidebarTrigger.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+    }
+
+
+    function closeSidebar() {
+
+        if (isDesktop()) {
+            body.classList.add("sidebar-collapsed");
+        } else {
+            body.classList.remove("sidebar-open");
+        }
+
+        sidebarTrigger.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
+
+    sidebarClose.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+
+    sidebarTrigger.addEventListener(
+        "click",
+        openSidebar
+    );
+
+
+    if (sidebarOverlay) {
+
+        sidebarOverlay.addEventListener(
+            "click",
+            closeSidebar
+        );
+
+    }
+
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            if (isDesktop()) {
+                body.classList.remove("sidebar-open");
+            }
+
+        }
+    );
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeSidebar
+);
+
+
+/* ==========================================================
+   JOB ALERT SUBSCRIPTIONS
+========================================================== */
+
+function initializeJobAlerts() {
+    const form = document.getElementById("jobAlertForm");
+    const emailInput = document.getElementById("jobAlertEmail");
+    const button = document.getElementById("jobAlertButton");
+    const message = document.getElementById("jobAlertMessage");
+
+    if (!form || !emailInput || !button || !message) {
+        return;
+    }
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const email = emailInput.value.trim().toLowerCase();
+
+        if (!email) {
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = "Adding...";
+        message.textContent = "";
+        message.className = "alerts-message";
+
+        try {
+            const { error } = await supabaseClient
+                .from("job_subscribers")
+                .insert({
+                    email: email
+                });
+
+            if (error) {
+
+                /*
+                 * A duplicate email will be rejected by the
+                 * unique index. We deliberately don't expose
+                 * subscriber data through SELECT.
+                 */
+                if (error.code === "23505") {
+                    message.textContent =
+                        "You're already subscribed to Bulbeni job alerts.";
+                    message.classList.add("success");
+                } else {
+                    throw error;
+                }
+
+            } else {
+
+                message.textContent =
+                    "You're subscribed! We'll email you when a new job is posted.";
+                message.classList.add("success");
+
+                emailInput.value = "";
+            }
+
+        } catch (error) {
+
+            console.error("Job alert subscription error:", error);
+
+            message.textContent =
+                "Something went wrong. Please try again.";
+            message.classList.add("error");
+
+        } finally {
+
+            button.disabled = false;
+            button.textContent = "Notify me";
+        }
+    });
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeJobAlerts
+);
