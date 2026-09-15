@@ -1390,3 +1390,27 @@ main,
         text-align: center;
     }
 }
+
+/* ==========================================================
+   MOBILE FOOTER — TRUE CENTER ALIGNMENT
+========================================================== */
+
+@media (max-width: 600px) {
+    .footer-inner {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .footer-logo {
+        margin: 0 auto;
+    }
+
+    .footer-inner p {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+    }
+}
