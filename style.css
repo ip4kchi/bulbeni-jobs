@@ -1560,3 +1560,51 @@ main,
     }
 
 }
+
+/* ==========================================================
+   MOBILE FOOTER — CENTER LOGO AND TEXT
+========================================================== */
+
+@media (max-width: 600px) {
+    .footer-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    .footer-inner .footer-logo {
+        margin: 0 auto !important;
+    }
+
+    .footer-inner p {
+        width: 100% !important;
+        margin: 0 !important;
+        text-align: center !important;
+    }
+}
+
+/* ==========================================================
+   MOBILE FOOTER — CENTER LOGO AND TEXT
+========================================================== */
+
+@media (max-width: 600px) {
+    .footer-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    .footer-inner .footer-logo {
+        margin: 0 auto !important;
+    }
+
+    .footer-inner p {
+        width: 100% !important;
+        margin: 0 !important;
+        text-align: center !important;
+    }
+}
